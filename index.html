@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK Books</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Segoe UI', sans-serif; */
+            font-family: 'Poppins', sans-serif;
+
+            background: #0b0b0b;
+            color: #fff;
+        }
+
+        header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            /* position: relative; */
+            position: sticky;
+            top: 0;
+            background: rgb(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        header h1 {
+            font-size: 20px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        /* hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background: #fff;
+        }
+
+        /* mobile menu */
+        @media (max-width: 768px) {
+            nav {
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: #111;
+                flex-direction: column;
+                width: 180px;
+                padding: 15px;
+                border: 1px solid #222;
+                display: none;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h2 {
+            font-size: 26px;
+        }
+
+        .hero p {
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            /* width: 330px; */
+            background: #121212;
+            border: 1px solid #222;
+
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #444;
+        }
+
+        .card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #222;
+            margin-top: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            padding: 10px 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #222;
+            background: #111;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: #555;
+        }
+
+        #contact {
+            background: #121212;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 20px;
+            /* max-width: 400px; */
+            margin: 40px auto;
+            /* text-align: center; */
+            border: 2px solid #158ec6;
+        }
+
+        #contact h2 {
+            margin-bottom: 15px;
+        }
+
+        #contact a {
+            color: #158ec6;
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 2;
+        }
+
+        #contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>SK Books</h1>
+
+        <nav id="menu">
+            <a href="#">Home</a>
+            <a href="#books">Books</a>
+            <a href="#contact">Contact</a>
+            <button class="donate" style="background-color: gold;">Donate US</button>
+        </nav>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Premium Study Books</h2>
+        <p>Learn smarter. Grow faster.</p>
+    </section>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search books...">
+    </div>
+
+    <div class="container" id="books">
+
+        <div class="card">
+            <img src="pc-eajee.png" alt="Book">
+            <div class="card-content">
+                <h3>Physical Chemistry EaJEE Notes by Faisal Sir</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('PC-EaJEE.pdf')">Download Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="ioc-eajee.png" alt="Book">
+            <div class="card-content">
+                <h3>IOC EaJEE Notes by OM Pandey Sir</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('IOC-EaJEE.pdf')">Download Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="hcv.png" alt="Book">
+            <div class="card-content">
+                <h3>Concept of Physics</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('hcv.pdf')">Download Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="irodov.png" alt="Book">
+            <div class="card-content">
+                <h3>Irodov</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('irodov.pdf')">Download Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ja-47-physics.png" alt="Book">
+            <div class="card-content">
+                <h3>JEE Advanced 47 Years Physics</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('ja-47-physics.pdf')">Download Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ja-47-chemistry.png" alt="Book">
+            <div class="card-content">
+                <h3>JEE Advanced 47 Years Chemistry</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('ja-47-chemistry.pdf')">Download Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ja-47-maths.png" alt="Book">
+            <div class="card-content">
+                <h3>JEE Advanced 47 Years Maths</h3>
+                <p class="price">FREE</p>
+                <button onclick="openPdf('ja-47-maths.pdf')">Download Now</button>
+            </div>
+        </div>
+
+    </div>
+
+    <section>
+        <div class="card" id="contact">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or feedback, feel free to reach out to us!</p>
+            <a href="mailto:sakshamshrivastav1107@gmail.com">Email ID : sakshamshrivastav1107@gmail.com</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 SK Books • All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        function payNow(bookName, amount) {
+            var options = {
+                "key": "YOUR_RAZORPAY_KEY",
+                "amount": amount * 100,
+                "currency": "INR",
+                "name": "SK Books",
+                "description": bookName,
+                "handler": function (response) {
+                    alert("Payment Successful! ID: " + response.razorpay_payment_id);
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        }
+        openPdf = (pdf) => {
+            window.open(pdf, '_blank');
+        }
+
+        payInp = (bookName) => {
+            window.inp = prompt("Enter amount to donate:");
+            if (inp && !isNaN(inp)) {
+                payNow(bookName, inp);
+            } else {
+                alert("Please enter a valid number.");
+            }
+        }
+        document.querySelector('.donate').addEventListener('click', () => {
+            payInp("Donation for SK Books");
+        });
+
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                let title = card.querySelector("h3").innerText.toLowerCase();
+
+                if (title.includes(value)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
